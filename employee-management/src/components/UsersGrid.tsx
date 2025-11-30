@@ -2,10 +2,8 @@ import styles from "./UsersGrid.module.scss";
 import type { Employee } from "../utils/employeeMapper";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
-import {
-  employeeMatchesSearch,
-  normalizeSearchInput,
-} from "../utils/employeeSearch";
+import { employeeMatchesSearch } from "../utils/employeeSearch";
+import type { RootState } from "../state/store";
 
 export function UsersGrid({
   employees: employees,
@@ -17,15 +15,14 @@ export function UsersGrid({
   error: string | null;
 }) {
   // read search text from Redux
-  const searchText = useSelector((state: any) => state.searchText.text);
-  const normalized = normalizeSearchInput(searchText);
+  const searchText = useSelector((state: RootState) => state.searchText.text);
   const filteredEmployees =
-    normalized.length === 0
+    searchText.length === 0
       ? employees
       : employees.filter((e) =>
           employeeMatchesSearch(
             { full_name: e.full_name, email: e.email },
-            normalized
+            searchText
           )
         );
 
@@ -45,6 +42,7 @@ export function UsersGrid({
         <DataGrid
           rows={filteredEmployees}
           columns={columns}
+          getRowId={(row) => row.email} // ensure unique keys across pages
           autoHeight
           density="compact"
           disableColumnMenu

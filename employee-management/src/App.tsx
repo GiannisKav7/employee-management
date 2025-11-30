@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import { fetchAllUsers, fetchUsers } from "./api/users";
+import { fetchAllUsers } from "./api/users";
 import { UsersGrid } from "./components/UsersGrid";
 import { transformUserToEmployee, type Employee } from "./utils/employeeMapper";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Search } from "./components/Search";
 import { Provider } from "react-redux";
-import { store } from "./state/state";
+import { store } from "./state/store";
+import { FilterDepartment } from "./components/FilterDepartment";
+import styles from "./components/FilterDepartment.module.scss";
 
 const theme = createTheme();
 
@@ -40,7 +42,10 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Search />
+        <div className={styles.filtersRow}>
+          <Search />
+          <FilterDepartment department="" onDepartmentChange={() => {}} />
+        </div>
         <UsersGrid employees={employees} loading={loading} error={error} />
       </ThemeProvider>
     </Provider>
