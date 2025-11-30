@@ -1,0 +1,28 @@
+.section {
+  text-align: left;
+  margin-top: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr 1fr;
+  gap: 8px;
+  align-items: center;
+}
+
+.headerCell {
+  font-weight: 600;
+}
+
+.cell {
+  padding: 2px 0;
+}
+
+.status {
+  font-size: 12px;
+  background: #333;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}

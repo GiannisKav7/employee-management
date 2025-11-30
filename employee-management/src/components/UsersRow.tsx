@@ -1,15 +1,17 @@
-import React from "react";
-import type { User } from "../api/users";
+import type { Employee } from "../utils/employeeMapper";
+import styles from "./UsersRow.module.scss";
 
-export function UsersRow({ user }: { user: User }) {
+export function UsersRow({ employee }: { employee: Employee }) {
   return (
     <>
-      <div>
-        {user.first_name} {user.last_name}
+      <div className={`${styles.cell} ${styles.name}`}>
+        {employee.full_name}
       </div>
-      <div>—</div>
-      <div>{user.email}</div>
-      <div>—</div>
+      <div className={`${styles.cell} ${styles.dept}`}>
+        {employee.department}
+      </div>
+      <div className={`${styles.cell} ${styles.email}`}>{employee.email}</div>
+      <div className={`${styles.cell} ${styles.status}`}>{employee.status}</div>
     </>
   );
 }
