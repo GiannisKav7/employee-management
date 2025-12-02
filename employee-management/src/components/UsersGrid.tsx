@@ -4,6 +4,7 @@ import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
 import { employeeMatchesSearch } from "../utils/employeeSearch";
 import type { RootState } from "../state/store";
+import { useNavigate } from "react-router-dom";
 
 export function UsersGrid({
   employees: employees,
@@ -14,9 +15,14 @@ export function UsersGrid({
   loading: boolean;
   error: string | null;
 }) {
-  // read search text from Redux
+  const navigate = useNavigate();
+  // read from Redux
   const searchText = useSelector((state: RootState) => state.searchText.text);
-  const filteredEmployees =
+  const filterDept = useSelector(
+    (state: RootState) => state.filterDept.selectedDepartment
+  );
+  // Apply search filter
+  const searchedEmployees =
     searchText.length === 0
       ? employees
       : employees.filter((e) =>
@@ -25,6 +31,12 @@ export function UsersGrid({
             searchText
           )
         );
+
+  // Apply department filter
+  const filteredEmployees =
+    filterDept == null || filterDept === ""
+      ? searchedEmployees
+      : searchedEmployees.filter((e) => e.department === filterDept);
 
   const columns: GridColDef<Employee>[] = [
     { field: "full_name", headerName: "Full Name", flex: 1.4, minWidth: 180 },
@@ -50,6 +62,9 @@ export function UsersGrid({
           pageSizeOptions={[5, 10, 25]}
           initialState={{
             pagination: { paginationModel: { pageSize: 10 } },
+          }}
+          onRowClick={(params) => {
+            navigate(`/employees/${encodeURIComponent(params.row.email)}`);
           }}
         />
       )}

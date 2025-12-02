@@ -6,19 +6,36 @@ import {
   type SelectChangeEvent,
 } from "@mui/material";
 import styles from "./FilterDepartment.module.scss";
+import { useEffect } from "react";
+import { departments } from "../utils/employeeMapper";
+import { useDispatch, useSelector } from "react-redux";
+import { setDepartmentFilter } from "../state/filter/filterDeptSlice";
 
-interface FilterDepartmentProps {
-  department?: string;
-  onDepartmentChange: (department: string) => void;
-}
+export function FilterDepartment() {
+  const department = useSelector(
+    (state: any) => state.filterDept?.selectedDepartment ?? ""
+  );
+  const dispatch = useDispatch();
 
-export function FilterDepartment({
-  department,
-  onDepartmentChange,
-}: FilterDepartmentProps) {
   const handleChange = (event: SelectChangeEvent) => {
-    onDepartmentChange(event.target.value as string);
+    const value = event.target.value as string;
+    if (value === "All") {
+      dispatch(setDepartmentFilter(null));
+      localStorage.removeItem("selectedDepartment");
+    } else {
+      dispatch(setDepartmentFilter(value));
+      localStorage.setItem("selectedDepartment", value);
+    }
   };
+
+  useEffect(() => {
+    const dept = localStorage.getItem("selectedDepartment");
+    if (dept && dept !== "All") {
+      dispatch(setDepartmentFilter(dept));
+    } else {
+      dispatch(setDepartmentFilter(null));
+    }
+  }, [dispatch]);
 
   return (
     <div className={styles.departmentFilter}>
@@ -27,19 +44,20 @@ export function FilterDepartment({
         <Select
           labelId="department-select-label"
           id="department-select"
-          value={department}
+          value={department || "All"}
           label="Department"
           onChange={handleChange}
+          displayEmpty
+          renderValue={(selected) => (selected ? (selected as string) : "All")}
         >
-          <MenuItem value="">
-            <em>None</em>
+          <MenuItem value="All">
+            <em>All</em>
           </MenuItem>
-          <MenuItem value="Engineering">Engineering</MenuItem>
-          <MenuItem value="HR">HR</MenuItem>
-          <MenuItem value="Sales">Sales</MenuItem>
-          <MenuItem value="Product">Product</MenuItem>
-          <MenuItem value="Finance">Finance</MenuItem>
-          <MenuItem value="Support">Support</MenuItem>
+          {departments.map((dept) => (
+            <MenuItem key={dept} value={dept}>
+              {dept}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </div>

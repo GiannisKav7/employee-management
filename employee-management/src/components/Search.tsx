@@ -2,8 +2,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Box, TextField, IconButton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchText } from "../state/search/searchTextSlice";
-// import types from your store
-// import type { RootState, AppDispatch } from "../state/store";
 
 export function Search() {
   // use typed selector if you have RootState: useSelector((s: RootState) => s.searchText.text)

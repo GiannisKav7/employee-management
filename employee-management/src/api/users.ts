@@ -13,7 +13,7 @@ export async function fetchUsers(page = 1, apiKey?: string): Promise<User[]> {
   }
 
   const res = await fetch(
-    `https://reqres.in/api/users?page=${page}&per_page=20`,
+    `https://reqres.in/api/users?page=${page}&per_page=10`,
     {
       headers,
     }
@@ -26,7 +26,7 @@ export async function fetchUsers(page = 1, apiKey?: string): Promise<User[]> {
 export async function fetchAllUsers(apiKey?: string): Promise<User[]> {
   let allUsers: User[] = [];
 
-  for (let page = 0; page <= 10; page++) {
+  for (let page = 1; page <= 2; page++) {
     const users = await fetchUsers(page, apiKey);
     allUsers = allUsers.concat(users);
   }

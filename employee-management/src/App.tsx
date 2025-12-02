@@ -5,10 +5,12 @@ import { transformUserToEmployee, type Employee } from "./utils/employeeMapper";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Search } from "./components/Search";
-import { Provider } from "react-redux";
-import { store } from "./state/store";
+import { Route, Routes } from "react-router-dom";
 import { FilterDepartment } from "./components/FilterDepartment";
 import styles from "./components/FilterDepartment.module.scss";
+import { Provider } from "react-redux";
+import { store } from "./state/store";
+import { EmployeeDetail } from "./components/EmployeeDetail";
 
 const theme = createTheme();
 
@@ -20,7 +22,7 @@ function App() {
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
-    fetchAllUsers("reqres-free-v1")
+    fetchAllUsers("reqres_e0529f821acf4792958f7c8dea3c4399")
       .then((u) => {
         if (!cancelled) {
           const mappedUsers = u.map((user) => transformUserToEmployee(user));
@@ -42,11 +44,28 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className={styles.filtersRow}>
-          <Search />
-          <FilterDepartment department="" onDepartmentChange={() => {}} />
-        </div>
-        <UsersGrid employees={employees} loading={loading} error={error} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <div className={styles.filtersRow}>
+                  <Search />
+                  <FilterDepartment />
+                </div>
+                <UsersGrid
+                  employees={employees}
+                  loading={loading}
+                  error={error}
+                />
+              </>
+            }
+          />
+          <Route
+            path="/employees/:email"
+            element={<EmployeeDetail employees={employees} />}
+          />
+        </Routes>
       </ThemeProvider>
     </Provider>
   );
