@@ -26,6 +26,7 @@ function App() {
       .then((u) => {
         if (!cancelled) {
           const mappedUsers = u.map((user) => transformUserToEmployee(user));
+          console.log("Mapped Users:", mappedUsers);
           setEmployees(mappedUsers);
         }
       })
