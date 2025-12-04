@@ -7,10 +7,10 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Search } from "./components/Search";
 import { Route, Routes } from "react-router-dom";
 import { FilterDepartment } from "./components/FilterDepartment";
-import styles from "./components/FilterDepartment.module.scss";
 import { Provider } from "react-redux";
 import { store } from "./state/store";
 import { EmployeeDetail } from "./components/EmployeeDetail";
+import { Header } from "./components/Header";
 
 const theme = createTheme();
 
@@ -45,15 +45,16 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <Header />
         <Routes>
           <Route
             path="/"
             element={
               <>
-                <div className={styles.filtersRow}>
+                <section>
                   <Search />
                   <FilterDepartment />
-                </div>
+                </section>
                 <UsersGrid
                   employees={employees}
                   loading={loading}
