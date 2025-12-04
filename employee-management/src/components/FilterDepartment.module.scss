@@ -1,47 +1,70 @@
+/* Filters container used in App/SearchFilterSection */
+.filtersRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Ensure the search input grows while the select keeps its max width */
+.filtersRow :global(#search) {
+  flex: 1 1 480px;
+}
+
 .departmentFilter {
-  max-width: 340px;
+  flex: 1 1 320px; // inline and can grow
+  max-width: 420px; // cap maximum width
   margin: 0 0 16px;
 }
 
 .formControl {
   width: 100%;
-  background: #f9f9f9;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.2s ease-in-out;
-}
 
-.formControl:hover {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
+  // Design tokens aligned with Search.module.scss
+  $radius: 8px;
+  $color-accent: #535bf2;
+  $color-outline: #888;
 
-:global(.MuiSelect-select) {
-  font-weight: 500;
-}
-
-:global(.MuiOutlinedInput-notchedOutline) {
-  border-color: #888;
-}
-
-.formControl:hover :global(.MuiOutlinedInput-notchedOutline) {
-  border-color: #555;
-}
-
-@media (prefers-color-scheme: dark) {
-  .formControl {
-    background: #2d2d2d;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  // Utility mixin to match focus/hover border treatment
+  @mixin focus-outline($color: $color-accent) {
+    transition: border-color 0.2s ease;
+    &:hover {
+      border-color: $color-outline;
+    }
+    :global(.Mui-focused &) {
+      border-color: $color;
+    }
   }
+
+  // Apply the same radius and outline behavior to the Select
   :global(.MuiOutlinedInput-notchedOutline) {
-    border-color: #555;
-  }
-  .formControl:hover :global(.MuiOutlinedInput-notchedOutline) {
-    border-color: #777;
+    @include focus-outline();
+    border-radius: $radius;
   }
 }
 
-.filtersRow {
-  display: block;
+/* Tablet: allow a bit more growth, reduce max width slightly */
+@media (max-width: 1024px) {
+  .filtersRow :global(#search) {
+    flex: 1 1 360px;
+  }
+  .departmentFilter {
+    flex: 1 1 280px;
+    max-width: 360px;
+    margin: 0;
+  }
+}
 
-  gap: 1rem;
-  margin-bottom: 1rem;
+/* Mobile: stack vertically, both full width */
+@media (max-width: 600px) {
+  .filtersRow {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .filtersRow :global(#search),
+  .departmentFilter {
+    flex: 1 1 100%;
+    max-width: 100%;
+    width: 100%;
+  }
 }

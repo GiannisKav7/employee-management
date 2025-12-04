@@ -49,6 +49,7 @@ export function FilterDepartment() {
           onChange={handleChange}
           displayEmpty
           renderValue={(selected) => (selected ? (selected as string) : "All")}
+          variant="outlined"
         >
           <MenuItem value="All">
             <em>All</em>

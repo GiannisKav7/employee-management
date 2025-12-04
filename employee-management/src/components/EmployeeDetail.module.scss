@@ -1,0 +1,57 @@
+$container-max: 720px;
+$space-1: 12px;
+$space-2: 16px;
+$label-color: #666;
+$value-color: #222;
+$link: #535bf2;
+
+@mixin mobile {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+
+.container {
+  padding: $space-2;
+  max-width: $container-max;
+
+  @include mobile {
+    padding: $space-1;
+  }
+}
+
+.title {
+  margin: 0 0 12px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.field {
+  margin: 6px 0;
+  line-height: 1.6;
+
+  .label {
+    display: inline-block;
+    min-width: 120px;
+    color: $label-color;
+    font-weight: 500;
+
+    @include mobile {
+      min-width: 100px;
+    }
+  }
+
+  .value {
+    color: $value-color;
+  }
+}
+
+.backLink {
+  display: inline-block;
+  margin-top: $space-2;
+  color: $link;
+
+  &:hover {
+    color: darken($link, 8%);
+  }
+}

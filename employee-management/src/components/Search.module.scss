@@ -1,42 +1,69 @@
-/* Deprecated: replaced by MUI sx props in Search.tsx */
+// Design tokens (local to module)
+$space-1: 12px;
+$space-2: 16px;
+$radius: 8px;
+$color-accent: #535bf2;
+$color-outline: #888;
 
-.formInput {
+// Responsive mixins
+@mixin tablet {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+@mixin mobile {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+
+// Utility mixins
+@mixin focus-outline($color: $color-accent) {
+  transition: border-color 0.2s ease;
+  &:hover {
+    border-color: $color-outline;
+  }
+  :global(.Mui-focused &) {
+    border-color: $color;
+  }
+}
+
+.section {
+  width: 100%;
+  flex: 1 1 480px;
+
+  @include tablet {
+    flex: 1 1 360px;
+  }
+  @include mobile {
+    flex: 1 1 100%;
+  }
+}
+
+.form {
+  position: relative;
+  max-width: none;
+
+  @include mobile {
+    max-width: 100%;
+  }
+}
+
+.input {
   width: 100%;
 
-  font-size: 1.4rem;
-  border: 1px solid rgb(188, 169, 0);
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-
-  background-color: white;
-  outline: none;
-  font-weight: 500;
-
-  transition: box-shadow 0.2s ease-in-out;
+  // polish the outlined input
+  :global(.MuiOutlinedInput-notchedOutline) {
+    @include focus-outline();
+    border-radius: $radius;
+  }
 }
 
-.formInput:focus-visible,
-.formInput:hover {
-  border-color: darkolivegreen;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-}
-
-.formBtnSearch {
-  cursor: pointer;
-  color: black;
-
-  border-radius: 8px;
-  font-size: 1rem;
-  opacity: 0.6;
-  background: none;
-  border: none;
-
+.submitBtn {
   height: 80%;
-  position: absolute;
-  right: 2px;
-  top: 12%;
-}
+  color: $color-accent;
 
-input[type="search"]::-webkit-search-cancel-button {
-  -webkit-appearance: none;
+  &:hover {
+    color: darken($color-accent, 8%);
+  }
 }

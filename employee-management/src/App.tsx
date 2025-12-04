@@ -4,9 +4,8 @@ import { UsersGrid } from "./components/UsersGrid";
 import { transformUserToEmployee, type Employee } from "./utils/employeeMapper";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Search } from "./components/Search";
+import { SearchFilterSection } from "./components/SearchFilterSection";
 import { Route, Routes } from "react-router-dom";
-import { FilterDepartment } from "./components/FilterDepartment";
 import { Provider } from "react-redux";
 import { store } from "./state/store";
 import { EmployeeDetail } from "./components/EmployeeDetail";
@@ -51,10 +50,7 @@ function App() {
             path="/"
             element={
               <>
-                <section>
-                  <Search />
-                  <FilterDepartment />
-                </section>
+                <SearchFilterSection />
                 <UsersGrid
                   employees={employees}
                   loading={loading}
