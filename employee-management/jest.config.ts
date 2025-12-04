@@ -18,8 +18,6 @@ const config: Config = {
   },
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   collectCoverage: false,
-  collectCoverageFrom: ["src/**/*.{ts,tsx}"],
-  coverageDirectory: "coverage",
   testMatch: ["**/?(*.)+(test|spec).+(ts|tsx)"],
 };
 

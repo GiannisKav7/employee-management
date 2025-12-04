@@ -2,6 +2,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Box, TextField, IconButton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchText } from "../state/search/searchTextSlice";
+import styles from "./Search.module.scss";
 
 export function Search() {
   // use typed selector if you have RootState: useSelector((s: RootState) => s.searchText.text)
@@ -9,10 +10,10 @@ export function Search() {
   const dispatch = useDispatch(); // const dispatch = useDispatch<AppDispatch>();
 
   return (
-    <Box component="section" id="search" sx={{ mb: 2 }}>
+    <Box component="section" id="search" className={styles.section}>
       <Box
         component="form"
-        sx={{ position: "relative", maxWidth: 440 }}
+        className={styles.form}
         onSubmit={(e) => {
           e.preventDefault();
         }}
@@ -27,9 +28,15 @@ export function Search() {
           size="small"
           fullWidth
           variant="outlined"
+          className={styles.input}
           InputProps={{
             endAdornment: (
-              <IconButton type="submit" aria-label="Search" edge="end">
+              <IconButton
+                type="submit"
+                aria-label="Search"
+                edge="end"
+                className={styles.submitBtn}
+              >
                 <SearchIcon fontSize="small" />
               </IconButton>
             ),

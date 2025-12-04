@@ -7,7 +7,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Search } from "./components/Search";
 import { Route, Routes } from "react-router-dom";
 import { FilterDepartment } from "./components/FilterDepartment";
-import styles from "./components/FilterDepartment.module.scss";
+
 import { Provider } from "react-redux";
 import { store } from "./state/store";
 import { EmployeeDetail } from "./components/EmployeeDetail";
@@ -50,7 +50,7 @@ function App() {
             path="/"
             element={
               <>
-                <div className={styles.filtersRow}>
+                <div>
                   <Search />
                   <FilterDepartment />
                 </div>
