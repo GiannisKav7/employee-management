@@ -1,79 +1,99 @@
-# React + TypeScript + Vite
+# Employee Management (React + TypeScript + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small app to list and view employees, with search and department filtering, powered by Redux Toolkit.
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js 18+ (recommend LTS)
+- npm 9+ (or pnpm/yarn)
 
-## React Compiler
+## Quick Start
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Install deps:
 
-## Expanding the ESLint configuration
+   ```bash
+   npm install
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+2. Create `.env.local` with:
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+   ```bash
+   VITE_API_KEY=your_api_key_here
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+3. Run the dev server:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+   ```bash
+   npm run dev
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+4. Open the app:
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+   - http://localhost:5173 (default Vite port)
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+## Scripts
 
-## Employee Search
+- Start (dev): `npm run dev`
+- Build: `npm run build` (outputs to `dist/`)
+- Preview built app: `npm run preview`
+- Test (if configured): `npm test`
+- Lint (if configured): `npm run lint`
 
-- Input: `src/components/Search.tsx` dispatches updates to Redux slice `src/state/search/searchTextSlice.ts`.
-- Store: Configured in `src/state/state.ts`.
-- Filter: Applied in `src/components/UsersGrid.tsx` by reading `searchText` and filtering `employees` using helpers in `src/utils/employeeSearch.ts`.
+## Environment Variables
+
+- Do not hardcode API keys.
+- App reads `import.meta.env.VITE_API_KEY`. Configure in `.env.local` (ignored by Git).
+- In CI/Prod, set `VITE_API_KEY` as an environment secret.
+
+## Redux Overview
+
+- apiKey slice: stores API key read at startup.
+- employeesList slice: holds fetched employees.
+- filterDept slice: stores selected department (persists in localStorage).
+- searchText slice: stores free-text search.
+
+Data flow:
+
+- AppShell reads `VITE_API_KEY`, dispatches to `apiKey`, fetches users with `fetchAllUsers`, maps with `transformUserToEmployee`, and populates `employeesList`.
+- UsersGrid selects `searchText` and `filterDept` to filter `employees`.
+
+## Theming (SCSS)
+
+- Global tokens in `src/styles/_variables.scss`:
+  - colors map: primary, secondary, border, muted, accent, outline, status-\*.
+  - radius, breakpoints.
+- Usage in modules:
+  ```
+  @use "sass:map";
+  @use "../../styles/_variables" as vars; // or "../styles/_variables"
+  background: map.get(vars.$colors, primary);
+  border-radius: vars.$radius;
+  ```
+- Status badge uses themed colors (status-active/onleave/inactive).
+
+## Styling Conventions
+
+- Use rem for font sizes (base 16px). Examples:
+  - 12px → 0.75rem
+  - 11px → 0.6875rem
+  - 10px → 0.625rem
+- Prefer SCSS modules with `@use` and `sass:map`.
+
+## Components (overview)
+
+- Header: top bar; Link styling overridden via `.link`.
+- SearchFilterSection: wraps Search and FilterDepartment.
+- Search: updates `searchText` slice.
+- FilterDepartment: updates `filterDept`, persists selection.
+- UsersGrid: MUI DataGrid; navigates to detail on row click.
+- EmployeeDetail: info, avatar, and status badge.
+
+## API
+
+- `src/api/users.ts`: fetches pages from reqres.in; `fetchAllUsers(apiKey?)`.
+- `src/utils/employeeMapper.ts`: maps API users to Employee.
+- `src/utils/employeeSearch.ts`: search helpers.
+
+## Coverage
+
+- Reports under `coverage/lcov-report`. Open `index.html`.

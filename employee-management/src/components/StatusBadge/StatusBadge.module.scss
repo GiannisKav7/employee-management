@@ -1,0 +1,30 @@
+@use "sass:map";
+@use "../../styles/variables" as vars;
+
+.status {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+/* bands */
+.status--active {
+  background-color: map.get(vars.$colors, status-active);
+  color: black;
+  border-color: black;
+}
+
+.status--onleave {
+  background-color: map.get(vars.$colors, status-onleave);
+  color: #111827;
+  border-color: black;
+}
+
+.status--inactive {
+  background-color: map.get(vars.$colors, status-inactive);
+  color: #fff;
+  border-color: black;
+}

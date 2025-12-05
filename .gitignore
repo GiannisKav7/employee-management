@@ -1,0 +1,8 @@
+# Environment variables (keep secrets out of Git)
+.env
+.env.*
+!.env.example
+
+# Vite/Node typical ignores
+node_modules/
+dist/

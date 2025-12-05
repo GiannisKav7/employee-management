@@ -1,0 +1,63 @@
+@use "sass:map";
+@use "../../styles/variables" as vars;
+$container-max: 720px;
+$space-1: 12px;
+$space-2: 16px;
+$label-color: #666;
+$value-color: #222;
+$link: #535bf2;
+
+@mixin mobile {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+
+.container {
+  padding: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $container-max;
+  border: 2px solid map.get(vars.$colors, border);
+  border-radius: vars.$radius;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  @include mobile {
+    padding: $space-1;
+  }
+}
+
+.title {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.field {
+  margin: 6px 0;
+  line-height: 1.6;
+
+  .label {
+    display: inline-block;
+    min-width: 120px;
+    color: $label-color;
+    font-weight: 500;
+
+    @include mobile {
+      min-width: 100px;
+    }
+  }
+
+  .value {
+    color: $value-color;
+  }
+}
+
+.backLink {
+  display: inline-block;
+  margin-top: $space-2;
+  color: $link;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

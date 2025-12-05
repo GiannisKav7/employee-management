@@ -1,0 +1,67 @@
+@use "sass:map";
+@use "../../styles/_variables" as vars;
+
+// Design tokens (local to module)
+$space-1: 12px;
+$space-2: 16px;
+$color-accent: map.get(vars.$colors, accent);
+$color-outline: map.get(vars.$colors, outline);
+
+// Responsive mixins
+@mixin tablet {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+@mixin mobile {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+
+// Utility mixins
+@mixin focus-outline($color: $color-accent) {
+  transition: border-color 0.2s ease;
+  &:hover {
+    border-color: $color-outline;
+  }
+  :global(.Mui-focused &) {
+    border-color: $color;
+  }
+}
+
+.section {
+  width: 100%;
+  flex: 1 1 480px;
+
+  @include tablet {
+    flex: 1 1 360px;
+  }
+  @include mobile {
+    flex: 1 1 100%;
+  }
+}
+
+.form {
+  position: relative;
+  max-width: none;
+
+  @include mobile {
+    max-width: 100%;
+  }
+}
+
+.input {
+  width: 100%;
+
+  // polish the outlined input
+  :global(.MuiOutlinedInput-notchedOutline) {
+    @include focus-outline();
+    border-radius: vars.$radius;
+  }
+}
+
+.submitBtn {
+  height: 80%;
+  color: $color-accent;
+}

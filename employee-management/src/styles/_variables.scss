@@ -1,0 +1,24 @@
+// Design tokens
+$font-base: 16px;
+$spacing-unit: 8px;
+
+$colors: (
+  "primary": #002147,
+  "secondary": #dfe4e9,
+  "danger": #dc3545,
+  "border": #cccccc,
+  "muted": #6b7280,
+  // new tokens
+  "accent": #535bf2,
+  "outline": #888888,
+  "status-active": darkseagreen,
+  "status-onleave": #f5e50b,
+  "status-inactive": #e35252,
+);
+
+$radius: 6px;
+$breakpoints: (
+  "sm": 576px,
+  "md": 768px,
+  "lg": 992px,
+);
