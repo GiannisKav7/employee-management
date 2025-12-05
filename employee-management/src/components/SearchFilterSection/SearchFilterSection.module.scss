@@ -1,15 +1,18 @@
+@use "../../styles/_variables" as vars;
+$gap: 12px;
+
 .section {
   display: flex;
-  //   flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 1rem;
+  padding: 2rem;
+  gap: $gap;
+
   width: 100%;
 }
 
 /* Tablet: maintain row layout with wrapping */
 @media (max-width: 1024px) {
   .section {
-    gap: 12px;
+    gap: $gap;
   }
 }
 
@@ -17,6 +20,6 @@
 @media (max-width: 600px) {
   .section {
     flex-direction: column;
-    gap: 12px;
+    gap: $gap;
   }
 }

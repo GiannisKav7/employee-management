@@ -1,5 +1,5 @@
-import { Search } from "./Search";
-import { FilterDepartment } from "./FilterDepartment";
+import { Search } from "../Search/Search";
+import { FilterDepartment } from "../FilterDepartment/FilterDepartment";
 import styles from "./SearchFilterSection.module.scss";
 
 export function SearchFilterSection() {

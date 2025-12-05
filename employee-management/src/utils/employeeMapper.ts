@@ -5,7 +5,7 @@ export interface Employee {
   department: string;
   status: string;
   avatar: string;
-  hireDate: Date;
+  hireDate: string;
   notes: string;
 }
 
@@ -30,12 +30,16 @@ export function transformUserToEmployee(user: any): Employee {
   // Use different bits/offsets of the hash to pick department and status so they vary
   const department = departments[hash % departments.length];
   const status = statuses[(hash >>> 8) % statuses.length];
-  const hireDate = new Date(2020 + (hash % 4), (hash >>> 16) % 12, 1);
+  const hireDate = new Date(
+    2020 + (hash % 4),
+    (hash >>> 16) % 12,
+    1
+  ).toISOString();
   const notes = `Employee notes for ${user.first_name ?? ""} ${
     user.last_name ?? ""
   }`.trim();
   return {
-    id: Number(user.id),
+    id: user.id,
     email: user.email ?? "",
     full_name: `${user.first_name ?? ""} ${user.last_name ?? ""}`.trim(),
     department,

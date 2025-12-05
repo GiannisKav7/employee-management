@@ -1,15 +1,11 @@
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  type SelectChangeEvent,
-} from "@mui/material";
-import styles from "./FilterDepartment.module.scss";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useEffect } from "react";
-import { departments } from "../utils/employeeMapper";
+import { departments } from "../../utils/employeeMapper";
 import { useDispatch, useSelector } from "react-redux";
-import { setDepartmentFilter } from "../state/filter/filterDeptSlice";
+import { setDepartmentFilter } from "../../state/filter/filterDeptSlice";
+import { useFilterDepartmentHandler } from "./handlers/useFilterDepartmentHandler";
+
+import styles from "./FilterDepartment.module.scss";
 
 export function FilterDepartment() {
   const department = useSelector(
@@ -17,16 +13,7 @@ export function FilterDepartment() {
   );
   const dispatch = useDispatch();
 
-  const handleChange = (event: SelectChangeEvent) => {
-    const value = event.target.value as string;
-    if (value === "All") {
-      dispatch(setDepartmentFilter(null));
-      localStorage.removeItem("selectedDepartment");
-    } else {
-      dispatch(setDepartmentFilter(value));
-      localStorage.setItem("selectedDepartment", value);
-    }
-  };
+  const { handleChange } = useFilterDepartmentHandler({ dispatch });
 
   useEffect(() => {
     const dept = localStorage.getItem("selectedDepartment");

@@ -1,0 +1,18 @@
+@use "../../styles/_variables" as vars;
+
+.field {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  margin: 0.25rem 0;
+}
+
+.label {
+  font-weight: 600;
+  color: #333;
+}
+
+.value {
+  color: #555;
+  word-break: break-word;
+}

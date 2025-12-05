@@ -1,3 +1,6 @@
+@use "sass:map";
+@use "../../styles/_variables" as vars;
+
 $gap-desktop: 8px;
 $gap-tablet: 6px;
 $gap-mobile: 8px;
@@ -20,9 +23,8 @@ $gap-mobile: 8px;
 
 .section {
   text-align: left;
-  margin-top: 24px;
   width: 100%;
-  padding-inline: 0;
+  padding: 0 2rem 2rem;
 
   @include mobile {
     padding-inline: 4px;
@@ -64,22 +66,22 @@ $gap-mobile: 8px;
 }
 
 .status {
-  font-size: 12px;
-  background: #333;
-  color: #fff;
+  font-size: 0.75rem; // 12px
+  background: map.get(vars.$colors, primary);
+  color: map.get(vars.$colors, secondary);
   padding: 2px 6px;
   border-radius: 4px;
   display: inline-block;
 
   @include tablet {
-    font-size: 11px;
+    font-size: 0.6875rem; // 11px
     padding: 2px 5px;
   }
   @include mobile {
-    font-size: 11px;
+    font-size: 0.6875rem; // 11px
   }
   @include compact {
-    font-size: 10px;
+    font-size: 0.625rem; // 10px
     padding: 1px 4px;
   }
 }

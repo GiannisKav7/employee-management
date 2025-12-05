@@ -1,9 +1,11 @@
+@use "sass:map";
+@use "../../styles/_variables" as vars;
+
 // Design tokens (local to module)
 $space-1: 12px;
 $space-2: 16px;
-$radius: 8px;
-$color-accent: #535bf2;
-$color-outline: #888;
+$color-accent: map.get(vars.$colors, accent);
+$color-outline: map.get(vars.$colors, outline);
 
 // Responsive mixins
 @mixin tablet {
@@ -55,15 +57,11 @@ $color-outline: #888;
   // polish the outlined input
   :global(.MuiOutlinedInput-notchedOutline) {
     @include focus-outline();
-    border-radius: $radius;
+    border-radius: vars.$radius;
   }
 }
 
 .submitBtn {
   height: 80%;
   color: $color-accent;
-
-  &:hover {
-    color: darken($color-accent, 8%);
-  }
 }

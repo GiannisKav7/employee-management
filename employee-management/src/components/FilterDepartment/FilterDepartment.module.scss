@@ -1,0 +1,50 @@
+@use "sass:map";
+@use "../../styles/_variables" as vars;
+
+.departmentFilter {
+  flex: 1 1 320px;
+  max-width: 420px;
+  margin: 0 0 16px;
+}
+
+.formControl {
+  width: 100%;
+
+  $color-accent: map.get(vars.$colors, accent);
+  $color-outline: map.get(vars.$colors, outline);
+
+  // Utility mixin for focus/hover border behavior
+  @mixin focus-outline($color: $color-accent) {
+    transition: border-color 0.2s ease;
+    &:hover {
+      border-color: $color-outline;
+    }
+    :global(.Mui-focused &) {
+      border-color: $color;
+    }
+  }
+
+  // Apply the same radius and outline behavior to the Select
+  :global(.MuiOutlinedInput-notchedOutline) {
+    @include focus-outline();
+    border-radius: vars.$radius;
+  }
+}
+
+/* Tablet: adjust filter widths */
+@media (max-width: 1024px) {
+  .departmentFilter {
+    flex: 1 1 280px;
+    max-width: 360px;
+    margin: 0;
+  }
+}
+
+/* Mobile: full width for the filter */
+@media (max-width: 600px) {
+  .departmentFilter {
+    flex: 1 1 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+}
