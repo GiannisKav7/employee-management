@@ -14,8 +14,15 @@ export const departments = ["Engineering", "Sales", "HR", "Finance"];
 export function transformUserToEmployee(user: any): Employee {
   const statuses = ["Active", "Inactive", "On Leave"];
 
-  // Deterministic hash (FNV-1a) from a string to a 32-bit unsigned int
+  /**
+   * FNV-1a 32-bit hash of a string.
+   * Purpose: deterministically map a user key (email/id) to a numeric hash.
+   * This hash is then used to derive department, status, and hire date so they vary
+   * predictably across users without storing those fields.
+   * Returns an unsigned 32-bit integer.
+   */
   function hashString(str: string): number {
+    // Deterministic hash (FNV-1a) from a string to a 32-bit unsigned int
     let hash = 2166136261 >>> 0;
     for (let i = 0; i < str.length; i++) {
       hash ^= str.charCodeAt(i);

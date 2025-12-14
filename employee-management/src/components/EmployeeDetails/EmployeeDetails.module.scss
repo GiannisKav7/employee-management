@@ -32,6 +32,15 @@ $link: #535bf2;
   font-weight: 600;
 }
 
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  margin-bottom: 0.5rem;
+}
+
 .field {
   margin: 6px 0;
   line-height: 1.6;
