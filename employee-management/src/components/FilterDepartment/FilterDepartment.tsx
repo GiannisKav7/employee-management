@@ -13,7 +13,7 @@ export function FilterDepartment() {
   );
   const dispatch = useDispatch();
 
-  const { handleChange } = useFilterDepartmentHandler({ dispatch });
+  const handleChange = useFilterDepartmentHandler({ dispatch });
 
   useEffect(() => {
     const dept = localStorage.getItem("selectedDepartment");

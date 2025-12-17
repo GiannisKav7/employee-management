@@ -1,9 +1,9 @@
 import { type SelectChangeEvent } from "@mui/material";
-import type { Dispatch, UnknownAction } from "redux";
+import type { Dispatch } from "redux";
 import { setDepartmentFilter } from "../../../state/filter/filterDeptSlice";
 
 type useFilterDepartmentHandlerProps = {
-  dispatch: Dispatch<UnknownAction>;
+  dispatch: Dispatch;
 };
 
 export const useFilterDepartmentHandler = ({
@@ -19,5 +19,5 @@ export const useFilterDepartmentHandler = ({
       localStorage.setItem("selectedDepartment", value);
     }
   };
-  return { handleChange };
+  return handleChange;
 };

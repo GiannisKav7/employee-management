@@ -15,12 +15,8 @@ const filterDeptSlice = createSlice({
     setDepartmentFilter(state, action: { payload: string | null }) {
       state.selectedDepartment = action.payload;
     },
-    clearDepartmentFilter(state) {
-      state.selectedDepartment = null;
-    },
   },
 });
 
-export const { setDepartmentFilter, clearDepartmentFilter } =
-  filterDeptSlice.actions;
+export const { setDepartmentFilter } = filterDeptSlice.actions;
 export default filterDeptSlice.reducer;

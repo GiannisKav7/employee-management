@@ -19,9 +19,6 @@
     &:hover {
       border-color: $color-outline;
     }
-    :global(.Mui-focused &) {
-      border-color: $color;
-    }
   }
 
   // Apply the same radius and outline behavior to the Select
